@@ -1,5 +1,7 @@
 package com.stepa7.kafkaweather;
 
+import com.stepa7.kafkaweather.core.WeatherConstants;
+import com.stepa7.kafkaweather.core.WeatherData;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -11,8 +13,6 @@ import java.util.List;
 @Service
 public class WeatherConsumer {
     private static final String TOPIC = "weather";
-    private final String[] statuses = {"Солнечно", "Дождь", "Облачно"};
-    private final String[] cities = {"Магадан", "Чукотка", "Питер", "Тюмень", "Москва", "Нижний Новгород"};
     private final List<WeatherData> weatherDataList = new ArrayList<>();
 
     @KafkaListener(topics = TOPIC)
@@ -53,7 +53,7 @@ public class WeatherConsumer {
 
     private void avgTemperatureByCities() {
         System.out.printf("Средняя температура по городам: ");
-        for (String city : cities) {
+        for (String city : WeatherConstants.CITIES) {
             Double average = weatherDataList.stream()
                     .filter(weatherData -> weatherData.getCity().equals(city))
                     .mapToInt(WeatherData::getTemperature)
@@ -64,10 +64,10 @@ public class WeatherConsumer {
     }
 
     private void countStatusByCities() {
-        for (String status : statuses) {
+        for (String status : WeatherConstants.STATUSES) {
             long maxCount = -1;
             List<String> resultCities = new ArrayList<>();
-            for (String city : cities) {
+            for (String city : WeatherConstants.CITIES) {
                 long count = weatherDataList.stream()
                     .filter(weatherData -> weatherData.getCity().equals(city))
                     .filter(weatherData -> weatherData.getStatus().equals(status))

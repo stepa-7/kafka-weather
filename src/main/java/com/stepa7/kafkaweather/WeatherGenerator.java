@@ -1,5 +1,7 @@
 package com.stepa7.kafkaweather;
 
+import com.stepa7.kafkaweather.core.WeatherConstants;
+import com.stepa7.kafkaweather.core.WeatherData;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -8,13 +10,11 @@ import java.util.Random;
 @Service
 public class WeatherGenerator {
     private final Random random = new Random();
-    private final String[] statuses = {"Солнечно", "Дождь", "Облачно"};
-    private final String[] cities = {"Магадан", "Чукотка", "Питер", "Тюмень", "Москва", "Нижний Новгород"};
 
-    WeatherData generateWeatherData() {
+    public WeatherData generateWeatherData() {
         int temperature = random.nextInt(36);
-        String status = statuses[random.nextInt(statuses.length)];
-        String city = cities[random.nextInt(cities.length)];
+        String status = WeatherConstants.STATUSES[random.nextInt(WeatherConstants.STATUSES.length)];
+        String city = WeatherConstants.CITIES[random.nextInt(WeatherConstants.CITIES.length)];
         LocalDateTime date = generateTime();
         return new WeatherData(temperature, status, city, date);
     }

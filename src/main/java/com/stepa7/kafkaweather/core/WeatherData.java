@@ -1,6 +1,5 @@
-package com.stepa7.kafkaweather;
+package com.stepa7.kafkaweather.core;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;

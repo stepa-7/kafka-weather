@@ -1,5 +1,6 @@
 package com.stepa7.kafkaweather;
 
+import com.stepa7.kafkaweather.core.WeatherData;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class WeatherProducerScheduler {
     }
 
     @Scheduled(fixedRate = 5000)
-    private void sendWeatherData() {
+    public void sendWeatherData() {
         WeatherData weatherData = weatherGenerator.generateWeatherData();
         weatherProducer.sendWeather(weatherData);
     }
