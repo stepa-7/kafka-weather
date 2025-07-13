@@ -14,7 +14,5 @@ public class WeatherData {
     private int temperature;
     private String status;
     private String city;
-
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 }
